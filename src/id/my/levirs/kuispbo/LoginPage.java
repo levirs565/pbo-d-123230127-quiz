@@ -63,7 +63,7 @@ public class LoginPage extends JFrame {
         mLoginButton.addActionListener((e) -> {
             var username = mUsernameTextField.getText();
             var password = mPasswordTextField.getText();
-            if (username.trim().isEmpty() || password.trim().isEmpty() || !password.equals("pbo-d")) {
+            if (!Auth.getInstance().login(username, password)) {
                 JOptionPane.showMessageDialog(this,
                         "Username kosong atau password kosong atau password salah",
                         "Gagal Login",

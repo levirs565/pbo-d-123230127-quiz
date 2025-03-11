@@ -134,7 +134,7 @@ public class MainPage extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(new Dimension(400, 550));
         setLocationRelativeTo(null);
-        setTitle("Input Member by Levi Rizki Saputra");
+        setTitle("Input Member by " + Auth.getInstance().getLoggedAs());
 
         mDataList = new ArrayList<>();
         mSaveButton.addActionListener((e) -> {
