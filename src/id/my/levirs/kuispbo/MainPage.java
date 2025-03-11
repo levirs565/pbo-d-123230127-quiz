@@ -25,10 +25,11 @@ public class MainPage extends JFrame {
     private ArrayList<String> mDataList;
 
     public MainPage() {
-//        setContentPane(Box.createVerticalBox());
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        var contentPage = Box.createVerticalBox();
+        contentPage.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPage);
 
-        var gridPanel = new JPanel(new GridLayout(2, 2));
+        var gridPanel = new JPanel(new GridLayout(2, 2, 5, 5));
         gridPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(gridPanel);
 
@@ -44,13 +45,18 @@ public class MainPage extends JFrame {
         mNamaBelakangField = new JTextField();
         gridPanel.add(mNamaBelakangField);
 
+        add(Box.createVerticalStrut(5));
+
         mDivisiLabel = new JLabel("Divisi");
         mDivisiLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         mDivisiLabel.setHorizontalAlignment(SwingConstants.LEFT);
         add(mDivisiLabel);
 
+        add(Box.createVerticalStrut(5));
+
         mDivisiComboBox = new JComboBox<>(mDivisiArray);
         mDivisiComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mDivisiComboBox.setSelectedIndex(-1);
         add(mDivisiComboBox);
 
         var kelaminBox = Box.createHorizontalBox();
@@ -63,36 +69,43 @@ public class MainPage extends JFrame {
 
         mJenisKelaminLabel = new JLabel("Jenis Kelamin");
         kelaminBox.add(mJenisKelaminLabel);
-        ;
 
         mPriaRadio = new JRadioButton("Pria");
+        kelaminBox.add(Box.createHorizontalStrut(5));
         kelaminBox.add(mPriaRadio);
         mButtonGroup.add(mPriaRadio);
 
         mWanitaRadio = new JRadioButton("Wanita");
+        kelaminBox.add(Box.createHorizontalStrut(5));
         kelaminBox.add(mWanitaRadio);
         mButtonGroup.add(mWanitaRadio);
 
         kelaminBox.add(Box.createHorizontalGlue());
 
+        add(Box.createVerticalStrut(5));
         mSaveButton = new JButton("Simpan Data");
         mSaveButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(mSaveButton);
 
+        add(Box.createVerticalStrut(5));
         mListLabel = new JLabel("List Data");
         mListLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(mListLabel);
 
+        add(Box.createVerticalStrut(5));
         mTextArea = new JTextArea();
+        mTextArea.setEditable(false);
         mScrollPane = new JScrollPane(mTextArea);
         mScrollPane.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
         mScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(mScrollPane);
 
+        add(Box.createVerticalStrut(5));
         mCheckBox = new JCheckBox("Ingin melakukan Import / Export Data?");
         mCheckBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(mCheckBox);
 
+        add(Box.createVerticalStrut(5));
         var bottomBox = Box.createHorizontalBox();
         bottomBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         bottomBox.setVisible(false);
@@ -104,6 +117,7 @@ public class MainPage extends JFrame {
         bottomBox.add(mImportButton);
 
         mExportButton = new JButton("Export To Txt");
+        bottomBox.add(Box.createHorizontalStrut(5));
         bottomBox.add(mExportButton);
 
         bottomBox.add(Box.createHorizontalGlue());
@@ -112,13 +126,14 @@ public class MainPage extends JFrame {
 
         makeComponentNotExpand(gridPanel);
         makeComponentNotExpand(mDivisiComboBox);
+        makeComponentNotExpand(kelaminBox);
         makeComponentNotExpand(mSaveButton);
         makeComponentNotExpand(bottomBox);
 
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(new Dimension(400, 550));
         setLocationRelativeTo(null);
-        setSize(new Dimension(300, 450));
         setTitle("Input Member by Levi Rizki Saputra");
 
         mDataList = new ArrayList<>();
@@ -137,6 +152,11 @@ public class MainPage extends JFrame {
 
             mDataList.add(String.format("%s %s | %s | %s", namaDepan, namaBelakang, divisi, jenisKelamin));
             syncDataListToTextArea();
+
+            mNamaDepanField.setText("");
+            mNamaBelakangField.setText("");
+            mButtonGroup.clearSelection();
+            mDivisiComboBox.setSelectedIndex(-1);
         });
 
         mCheckBox.addItemListener((e) -> {

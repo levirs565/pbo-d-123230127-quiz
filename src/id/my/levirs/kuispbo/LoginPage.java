@@ -16,9 +16,12 @@ public class LoginPage extends JFrame {
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 2;
+        c.insets = new Insets(5, 5, 5, 5);
 
         mTitleLabel = new JLabel("Selamat Datang di Aplikasi (123230127)");
         add(mTitleLabel, c);
+
+        c.insets.top = 0;
 
         c.gridy = 1;
         c.gridwidth = 1;
@@ -52,6 +55,11 @@ public class LoginPage extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Halaman Login");
 
+        configLabelSize(mUsernameLabel);
+        configLabelSize(mPasswordLabel);
+
+        setSize(300, 144);
+
         mLoginButton.addActionListener((e) -> {
             var username = mUsernameTextField.getText();
             var password = mPasswordTextField.getText();
@@ -72,4 +80,7 @@ public class LoginPage extends JFrame {
         });
     }
 
+    void configLabelSize(Component c) {
+        c.setPreferredSize(new Dimension(75, c.getSize().height));
+    }
 }
