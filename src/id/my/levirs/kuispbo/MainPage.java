@@ -164,8 +164,16 @@ public class MainPage extends JFrame {
         });
 
         mImportButton.addActionListener((e) -> {
+            var chooser = new JFileChooser();
+            
+            var result = chooser.showOpenDialog(this);
+            
+            if(result != JFileChooser.APPROVE_OPTION) {
+                return;
+            }
+            
             try {
-                mTextArea.read(new FileReader("result.txt"), null);
+                mTextArea.read(new FileReader(chooser.getSelectedFile()), null);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this,
                         "Gagal Membaca File",
